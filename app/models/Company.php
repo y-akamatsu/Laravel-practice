@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
     public function user(){
-        return $this->hasmany(User::class);
+        return $this->hasMany(User::class);
     }
 }
