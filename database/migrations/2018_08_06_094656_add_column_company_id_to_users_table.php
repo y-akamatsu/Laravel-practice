@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnCompanyNameUsersTable extends Migration
+class AddColumnCompanyIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddColumnCompanyNameUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('company_name')->comment('企業名')->after('remember_token');
+            $table->integer('company_id')->nullable()->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -26,7 +27,8 @@ class AddColumnCompanyNameUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('company_name');
+            $table->dropForeign('users_company_id_foreign');
+            $table->dropColumn('company_id');
         });
     }
 }
