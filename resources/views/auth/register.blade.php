@@ -12,7 +12,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('conmpany_name') ? ' has-error' : '' }}">
-                            <label for="conmpany_name" class="col-md-4 control-label">Conpany Name</label>
+                            <label for="company_name" class="col-md-4 control-label">Company Name</label>
 
                             <div class="col-md-6">
                                 <input id="conmpany_name" type="text" class="form-control" name="conmpany_name" value="{{ old('name') }}" required autofocus>
