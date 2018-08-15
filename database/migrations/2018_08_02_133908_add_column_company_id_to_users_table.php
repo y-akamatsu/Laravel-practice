@@ -5,7 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddColumnCompanyIdToUsersTable extends Migration
 {
-    /**
+    /**$ git push -u origin master
+
      * Run the migrations.
      *
      * @return void

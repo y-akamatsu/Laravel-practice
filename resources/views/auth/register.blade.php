@@ -11,15 +11,15 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('conmpany_name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }}">
                             <label for="company_name" class="col-md-4 control-label">Company Name</label>
 
                             <div class="col-md-6">
-                                <input id="conmpany_name" type="text" class="form-control" name="conmpany_name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('conmpany_name'))
+                               <input id="company_name" type="text" class="form-control" name="company_name" value="{{ old('company_name') }}" autofocus>
+                                
+                                @if ($errors->has('company_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('conmpany_name') }}</strong>
+                                        <strong>{{ $errors->first('company_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -29,7 +29,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -43,7 +43,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -57,7 +57,7 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -71,7 +71,7 @@
                             <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                             </div>
                         </div>
 
