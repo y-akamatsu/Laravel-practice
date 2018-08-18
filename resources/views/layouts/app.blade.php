@@ -31,6 +31,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+                    <a class="navbar-brand" href="{{ route('posts.index') }}">Post一覧</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
