@@ -9,6 +9,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>{{ __('Name') }}</th>
                     <th>{{ __('Title') }}</th>
                     <th>{{ __('Body') }}</th>
                     <th>{{ __('Created') }}</th>
@@ -18,9 +19,8 @@
             <tbody>
             @foreach ($posts as $post)
                 <tr>
-                    <td>
-                        <a href="{{ url('posts/'.$post->id) }}">{{ $post->title }}</a>
-                    </td>
+                    <td><a href="{{ url('users/'.$post->user->id) }}">{{ $post->user->name }}</a></td>
+                    <td><a href="{{ url('posts/'.$post->id) }}">{{ $post->title }}</a></td>
                     <td>{{ $post->body }}</td>
                     <td>{{ $post->created_at }}</td>
                     <td>{{ $post->updated_at }}</td>

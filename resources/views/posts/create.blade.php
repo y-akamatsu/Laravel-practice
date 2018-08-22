@@ -6,8 +6,8 @@
 <div class="container">
     <h1>{{ $title }}</h1>
     <form action="{{ url('posts') }}" method="post">
-        @csrf
-        @method('POST')
+         {{ csrf_field() }}
+         {{ method_field('POST') }}
         <div class="form-group">
             <label for="title">{{ __('Title') }}</label>
             <input id="title" type="text" class="form-control" name="title" required autofocus>

@@ -26,7 +26,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Post $post)
     {
         return view('posts.create');
     }
@@ -40,10 +40,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post;
-        $post->title =$reqyest->title;
+        $post->title =$request->title;
         $post->body = $request->body;
         $post->save();
-        return redirect('post/'.$post->id);
+        return redirect('posts/'.$post->id);
     }
 
     /**

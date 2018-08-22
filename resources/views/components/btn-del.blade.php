@@ -1,6 +1,6 @@
 <form style="display:inline" action="{{ url($table.'/'.$id) }}" method="post">
-    @csrf
-    @method('DELETE')
+   {{ csrf_field() }}
+   {{ method_field('DELETE') }}
     <button type="submit" class="btn btn-danger">
         {{ __('Delete') }}
     </button>

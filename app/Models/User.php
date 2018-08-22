@@ -33,5 +33,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Company');
         
     }
+    public function posts()
+    {
+        return $this->HasMay('App\Models\post')->latest();
+    }
 }
 
