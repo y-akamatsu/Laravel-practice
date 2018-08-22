@@ -35,7 +35,7 @@ class User extends Authenticatable
     }
     public function posts()
     {
-        return $this->HasMay('App\Models\post')->latest();
+        return $this->hasMay('App\Models\post')->latest();
     }
 }
 

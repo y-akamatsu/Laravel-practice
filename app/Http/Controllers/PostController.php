@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Auth;
+
 
 class PostController extends Controller
 {
@@ -15,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        $user = Auth::user();
+        $posts = Post::where('company_id', $user->company_id)->latest()->get();
      
      return view('posts.index', ['posts' => $posts]);
      
@@ -39,10 +42,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post;
-        $post->title =$request->title;
-        $post->body = $request->body;
-        $post->save();
+        $user = Auth::user();
+        $post = Post::create([
+            'title'         => $request->title,
+            'body'          => $request->body,
+            'company_id'    => $user->company_id,
+            'user_id'       => $user->id,
+        ]);
         return redirect('posts/'.$post->id);
     }
 
