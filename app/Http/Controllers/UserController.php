@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use App\Models\Post;
-use Auth;
+use App\Models\User;
 
-class PostController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $posts = Post::where('company_id', $user->company_id)->latest()->get();
-     
-     return view('posts.index', ['posts' => $posts]);
-     
+        $users = User::all();
+        return view('users.index',['users' => $users]);
     }
 
     /**
@@ -28,9 +25,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Post $post)
+    public function create()
     {
-        return view('posts.create');
+        //
     }
 
     /**
@@ -41,14 +38,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $post = Post::create([
-            'title'      => $request->title,
-            'body'       => $request->body,
-            'company_id' => $user->company_id,
-            'user_id'    => $user ->id,
-        ]);
-        return redirect('posts/' .$post->id);
+        //
     }
 
     /**
@@ -57,9 +47,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(User $user)
     {
-        return view('posts.show', ['post' => $post]);
+        $user->posts = $user->posts()->paginate(5);
+        return view('users.show', ['user' => $user]);
     }
 
     /**
@@ -68,9 +59,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(User $user)
     {
-        return view('posts.edit', ['post' => $post]);
+        return view('usrs.edit', ['user' => $user]);
     }
 
     /**
@@ -80,12 +71,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, User $user)
     {
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->save();
-        return redirect('posts/' . $post->id);
+        $user->name = $request->name;
+        $user->save();
+        return redirect('users/'.$user->id);
     }
 
     /**
@@ -94,9 +84,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(User $user)
     {
-        $post->delete();
-        return redirect('posts');
+        $user->delete();
+        return redirect('users');
     }
 }
