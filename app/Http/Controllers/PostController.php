@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\PostController;
+use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Auth;
@@ -36,10 +37,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StorePost $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
         $user = Auth::user();
         $post = Post::create([
@@ -76,11 +77,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\StorePost $request
+     * @param  \App\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(StorePost $request, Post $post)
     {
         $post->title = $request->title;
         $post->body = $request->body;
