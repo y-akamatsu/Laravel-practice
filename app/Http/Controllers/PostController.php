@@ -71,6 +71,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if ($post->company_id !== Auth::user()->company_id) {
+            abort(404);
+        }
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -83,6 +86,9 @@ class PostController extends Controller
      */
     public function update(StorePost $request, Post $post)
     {
+        if ($post->company_id !== Auth::user()->company_id) {
+            abort(404);
+        }
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
@@ -97,7 +103,16 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->company_id !== Auth::user()->company_id) {
+            abort(404);
+        }
         $post->delete();
         return redirect('posts');
     }
+    
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+    
 }
