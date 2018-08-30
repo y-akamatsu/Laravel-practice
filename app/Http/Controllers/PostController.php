@@ -43,13 +43,17 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $user = Auth::user();
+        $name = $request->file('thefile')->getClientOriginalName();
+        $request->file('thefile')->storeAs('images', $name);
         $post = Post::create([
             'title'      => $request->title,
             'body'       => $request->body,
             'company_id' => $user->company_id,
             'user_id'    => $user ->id,
         ]);
-        return redirect('posts/' .$post->id);
+        
+       return redirect('posts/' .$post->id);
+    
     }
 
     /**
@@ -69,11 +73,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(StorePost $request, Post $post)
     {
         if ($post->company_id !== Auth::user()->company_id) {
             abort(404);
         }
+        $name = $request->file('thefile')->getClientOriginalName();
+        $request->file('thefile')->storeAs('images', $name);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -93,6 +99,7 @@ class PostController extends Controller
         $post->body = $request->body;
         $post->save();
         return redirect('posts/' . $post->id);
+
     }
 
     /**
