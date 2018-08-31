@@ -122,4 +122,32 @@ class PostController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
     
+    public function upload(Request $request)
+    {
+        $this->validate($request, [
+            'file' => [
+                'required',
+                'file',
+                'image',
+                'mimes:jpeg,png',
+                'dimensions:min_height=120,max_width=400,height=400',
+            ]
+        ]);
+        
+        if($requst->file('file')->isValid([])){
+            $filename = $request->file->store('public/images');
+            
+            $user = User::find(auth()->id());
+            $user->image_filename = basename($filename);
+            $user->save();
+            
+            return redirect('/home')->with('success', '保存しました。');
+        }else{
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
+                
+        }
+    }
 }
