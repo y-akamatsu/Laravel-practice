@@ -43,13 +43,15 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $user = Auth::user();
-        $name = $request->file('thefile')->getClientOriginalName();
-        $request->file('thefile')->storeAs('images', $name);
+        $filename = $request->file('image_file')->getClientOriginalName();
+        $request->file('image_file')->storeAs('images', $name);
         $post = Post::create([
             'title'      => $request->title,
             'body'       => $request->body,
             'company_id' => $user->company_id,
             'user_id'    => $user ->id,
+            'image_filename' => $filename,
+            
         ]);
         
        return redirect('posts/' .$post->id);
@@ -124,30 +126,6 @@ class PostController extends Controller
     
     public function upload(Request $request)
     {
-        $this->validate($request, [
-            'file' => [
-                'required',
-                'file',
-                'image',
-                'mimes:jpeg,png',
-                'dimensions:min_height=120,max_width=400,height=400',
-            ]
-        ]);
-        
-        if($requst->file('file')->isValid([])){
-            $filename = $request->file->store('public/images');
-            
-            $user = User::find(auth()->id());
-            $user->image_filename = basename($filename);
-            $user->save();
-            
-            return redirect('/home')->with('success', '保存しました。');
-        }else{
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors(['file' => '画像がアップロードされていないか不正なデータです。']);
-                
-        }
+        //
     }
 }

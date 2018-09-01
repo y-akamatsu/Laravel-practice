@@ -23,7 +23,7 @@
              @endif
         </div>
         <div class="form-group">
-          <input class="field" name="thefile" type="file">
+          <input class="field" name="image_file" type="file">
         </div>
         <button type="submit" name="submit" class="btn btn-success">{{ __('Submit') }}</button>
     </form>
