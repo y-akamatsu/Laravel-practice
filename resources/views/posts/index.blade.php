@@ -12,6 +12,7 @@
                     <th>{{ __('Name') }}</th>
                     <th>{{ __('Title') }}</th>
                     <th>{{ __('Body') }}</th>
+                    <th>{{ __('image_filename') }}</th>
                     <th>{{ __('Created') }}</th>
                     <th>{{ __('Updated') }}</th>
                 </tr>
@@ -22,6 +23,7 @@
                     <td><a href="{{ url('users/'.$post->user->id) }}">{{ $post->user->name }}</a></td>
                     <td><a href="{{ url('posts/'.$post->id) }}">{{ $post->title }}</a></td>
                     <td>{{ $post->body }}</td>
+                    <td><img src="{{ asset('storage/app/' . $post->image_filename) }}" alt="image" /></td>
                     <td>{{ $post->created_at }}</td>
                     <td>{{ $post->updated_at }}</td>
                  </tr>

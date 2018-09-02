@@ -11,7 +11,7 @@ class Post extends Model
         'body',
         'company_id',
         'user_id',
-        'image_file'
+        'image_filename'
     ];
     
      public function user()
