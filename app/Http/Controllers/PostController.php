@@ -43,13 +43,13 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $user = Auth::user();
-        $filename = $request->file('image_file')->store('images');
+        $filename = $request->file('image_file')->store('public/images');
         $post = Post::create([
             'title'      => $request->title,
             'body'       => $request->body,
             'company_id' => $user->company_id,
             'user_id'    => $user ->id,
-            'image_filename' => $filename,
+            'image_filename' => basename($filename),
             
         ]);
         

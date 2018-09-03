@@ -17,6 +17,12 @@
 
     <!-- 記事内容 -->
     <dl class="row">
+        <dt class="col-md-2">{{ __('Image') }}:</dt>
+        <dd class="col-md-10">
+            @if($post->image_filename)
+                <img src="{{ asset('storage/images/' . $post->image_filename) }}" class="img-responsive">
+            @endif
+        </dd>
         <dt class="col-md-2">{{ __('Created') }}:</dt>
         <dd class="col-md-10">
             <time itemprop="dateCreated" datetime="{{ $post->created_at }}">
