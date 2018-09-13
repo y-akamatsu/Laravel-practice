@@ -23,7 +23,7 @@
                     <td><a href="{{ url('users/'.$post->user->id) }}">{{ $post->user->name }}</a></td>
                     <td><a href="{{ url('posts/'.$post->id) }}">{{ $post->title }}</a></td>
                     <td>{{ $post->body }}</td>
-                    <td><img src="{{ asset('storage/app/' . $post->image_filename) }}" alt="image" /></td>
+                    <td><img src="{{ asset('storage/images/' . $post->image_filename) }}" class="img-responsive"></td>
                     <td>{{ $post->created_at }}</td>
                     <td>{{ $post->updated_at }}</td>
                  </tr>

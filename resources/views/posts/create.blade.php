@@ -1,5 +1,5 @@
 @php
-    $title = __('Create Post');
+    $title = __('新規投稿');
 @endphp
 @extends('layouts.app')
 @section('content')

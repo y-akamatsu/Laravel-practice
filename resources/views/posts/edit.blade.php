@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <h1>{{ $title }}</h1>
-    <form action="{{ url('posts/'.$post->id) }}" method="post">
+    <form action="{{ url('posts/'.$post->id) }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <div class="form-group">
@@ -21,6 +21,12 @@
             @if ($errors->has('body'))
                 <span class="invalid-feedback">{{ $errors->first('body') }}</span>
             @endif
+        </div>
+        <div class="form-group">
+         <img src="{{ asset('storage/images/' . $post->image_filename) }}" class="img-responsive">
+        </div>
+        <div class="form-group">
+          <input class="field" name="image_file" type="file">
         </div>
         <button type="submit" name="submit" class="btn btn-success">{{ __('Submit') }}</button>
     </form>

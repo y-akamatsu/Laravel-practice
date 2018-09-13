@@ -1,5 +1,5 @@
 @php
-    $title = __('User') . ': ' . $user->name;
+    $title = __('ユーザー名') . ': ' . $user->name;
 @endphp
 @extends('layouts.app')
 @section('content')
@@ -35,6 +35,7 @@
                 <tr>
                     <th>{{ __('Title') }}</th>
                     <th>{{ __('Body') }}</th>
+                    <th>{{ __('image') }}</th>
                     <th>{{ __('Created') }}</th>
                     <th>{{ __('Updated') }}</th>
                     <th></th>
@@ -49,6 +50,10 @@
                             </a>
                         </td>
                         <td>{{ $post->body }}</td>
+                        <td> @if($post->image_filename)
+                                <img src="{{ asset('storage/images/' . $post->image_filename) }}" class="img-responsive">
+                            @endif
+                        </td>
                         <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
                         <td nowrap>

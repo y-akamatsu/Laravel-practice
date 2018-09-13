@@ -7,6 +7,7 @@ use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -43,17 +44,17 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $user = Auth::user();
-        $filename = $request->file('image_file')->store('images');
+        $filename = $request->file('image_file')->store('public/images');
         $post = Post::create([
             'title'      => $request->title,
             'body'       => $request->body,
             'company_id' => $user->company_id,
             'user_id'    => $user ->id,
-            'image_filename' => $filename,
+            'image_filename' => basename($filename),
             
         ]);
         
-       return redirect('posts/' .$post->id);
+       return redirect('posts/' .$post->id)->with('success', '投稿しました。');
     
     }
 
@@ -70,17 +71,12 @@ class PostController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(StorePost $request, Post $post)
+    public function edit(Post $post)
     {
-        if ($post->company_id !== Auth::user()->company_id) {
-            abort(404);
-        }
-        $name = $request->file('thefile')->getClientOriginalName();
-        $request->file('thefile')->storeAs('images', $name);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -96,10 +92,16 @@ class PostController extends Controller
         if ($post->company_id !== Auth::user()->company_id) {
             abort(404);
         }
+        
         $post->title = $request->title;
         $post->body = $request->body;
+        if ($request->file('image_file')) {
+          $filename = $request->file('image_file')->store('public/images');
+          $post->image_filename = basename($filename);
+        }
         $post->save();
-        return redirect('posts/' . $post->id);
+        
+        return redirect('posts/' .$post->id)->with('success', '編集しました。');
 
     }
 
@@ -123,8 +125,4 @@ class PostController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
     
-    public function upload(Request $request)
-    {
-        //
-    }
 }
